@@ -21,4 +21,4 @@ COPY --chown=nonroot:nonroot --from=build /webapp /webapp
 EXPOSE 80
 USER nonroot:nonroot
 
-CMD ["./webapp"]
+ENTRYPOINT ["./webapp"]
