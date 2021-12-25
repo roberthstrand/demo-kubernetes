@@ -18,6 +18,7 @@ RUN adduser -D nonroot
 
 COPY --chown=nonroot:nonroot --from=build /webapp /webapp
 
+ENV SERVER_PORT="80"
 EXPOSE 80
 USER nonroot:nonroot
 

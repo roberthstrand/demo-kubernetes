@@ -1,11 +1,19 @@
 package main
 
 import (
+	"log"
+	"os"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
+var (
+	ServerPort = ":" + os.Getenv("SERVER_PORT")
+)
+
 func main() {
+	log.Println("Starting up...")
 	app := fiber.New()
 	app.Use(logger.New())
 
@@ -17,5 +25,6 @@ func main() {
 		return c.SendStatus(200)
 	})
 
-	app.Listen(":80")
+	log.Println("Serving on port" + ServerPort)
+	app.Listen(ServerPort)
 }
