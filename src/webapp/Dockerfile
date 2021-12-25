@@ -22,4 +22,7 @@ ENV SERVER_PORT="80"
 EXPOSE 80
 USER nonroot:nonroot
 
-ENTRYPOINT ["./webapp"]
+RUN apk add dumb-init
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+
+CMD ["./webapp"]
