@@ -22,4 +22,4 @@ ENV SERVER_PORT="80"
 EXPOSE 80
 USER nonroot:nonroot
 
-CMD [ "/app/webapp" ]
+ENTRYPOINT [ "/app/webapp" ]
