@@ -1,5 +1,5 @@
 FROM golang:1.17.3-alpine3.14 AS build
-WORKDIR /
+WORKDIR /app
 
 COPY go.mod .
 COPY go.sum .
@@ -12,17 +12,14 @@ RUN go build -o webapp
 
 FROM alpine:3.14
 LABEL maintainer="Roberth Strand <me@robstr.dev>"
-WORKDIR /
+WORKDIR /app
 
 RUN adduser -D nonroot
 
-COPY --chown=nonroot:nonroot --from=build /webapp /webapp
+COPY --chown=nonroot:nonroot --from=build /app/webapp /app/webapp
 
 ENV SERVER_PORT="80"
 EXPOSE 80
 USER nonroot:nonroot
 
-RUN apk add dumb-init
-ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-
-CMD ["./webapp"]
+CMD [ "/app/webapp" ]
