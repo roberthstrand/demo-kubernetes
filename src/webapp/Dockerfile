@@ -15,10 +15,10 @@ LABEL maintainer="Roberth Strand <me@robstr.dev>"
 RUN apk --no-cache add ca-certificates \
 && adduser -S nonroot
 
+USER nonroot
 WORKDIR /home/nonroot
 
-USER nonroot
-COPY --chown=nonroot --from=build /app/webapp ./
+COPY --from=build /app/webapp ./
 
 ENV SERVER_PORT="80"
 EXPOSE 80
