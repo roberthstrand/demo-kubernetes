@@ -8,18 +8,20 @@ RUN go mod download
 
 COPY *.go .
 
-RUN go build -o webapp
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o webapp
 
 FROM alpine:3.14
 LABEL maintainer="Roberth Strand <me@robstr.dev>"
-WORKDIR /app
+RUN apk --no-cache add ca-certificates \
+&& addgroup -S nonroot \
+&& adduser -S nonroot -G nonroot
 
-RUN adduser -D nonroot
+WORKDIR /home/nonroot
 
-COPY --chown=nonroot:nonroot --from=build /app/webapp /app/webapp
+USER nonroot
+COPY --chown=nonroot:nonroot --from=build /app/webapp ./
 
 ENV SERVER_PORT="80"
 EXPOSE 80
-USER nonroot:nonroot
 
-ENTRYPOINT [ "/app/webapp" ]
+ENTRYPOINT [ "./webapp" ]
