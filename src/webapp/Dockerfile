@@ -16,14 +16,11 @@ RUN apk --no-cache add ca-certificates \
 && mkdir /home/nonroot && adduser -S nonroot
 
 WORKDIR /home/nonroot
-COPY start.sh ./
-RUN chmod +x start.sh
 USER nonroot
-
 
 COPY --from=build /app/webapp ./
 
-ENV SERVER_PORT="80"
-EXPOSE 80
+ENV SERVER_PORT="8080"
+EXPOSE 8080
 
-ENTRYPOINT [ "/bin/sh", "-c", "start.sh"]
+ENTRYPOINT [ "/home/nonroot/webapp" ]
