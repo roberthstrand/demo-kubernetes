@@ -26,5 +26,5 @@ func main() {
 	})
 
 	log.Println("Serving on port" + ServerPort)
-	app.Listen(ServerPort)
+	log.Fatal(app.Listen(ServerPort))
 }
