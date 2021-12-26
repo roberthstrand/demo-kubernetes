@@ -23,5 +23,4 @@ COPY --from=build /app/webapp ./
 ENV SERVER_PORT="80"
 EXPOSE 80
 
-ENTRYPOINT [ "/bin/sh" ]
-CMD [ "/home/nonroot/webapp" ]
+ENTRYPOINT [ "/bin/sh", "-c", "/home/nonroot/webapp"]
