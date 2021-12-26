@@ -13,7 +13,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o webapp
 FROM alpine:3.15
 LABEL maintainer="Roberth Strand <me@robstr.dev>"
 RUN apk --no-cache add ca-certificates \
-&& adduser -S nonroot
+&& mkdir /home/nonroot && adduser -S nonroot
 
 USER nonroot
 WORKDIR /home/nonroot
