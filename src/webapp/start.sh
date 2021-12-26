@@ -1,3 +1,3 @@
 #!/bin/sh
 
-./webapp &
+./home/nonroot/webapp &
